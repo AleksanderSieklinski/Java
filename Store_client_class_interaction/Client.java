@@ -1,4 +1,6 @@
 package Store_client_class_interaction;
+// This task was to create a client class and a store class that stores clients in an ArrayList.
+// The client class has a static variable that counts the number of clients.
 public class Client {
     // Instance variables
     private int clientId;

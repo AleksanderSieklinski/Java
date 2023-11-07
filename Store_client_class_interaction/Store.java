@@ -1,6 +1,5 @@
 package Store_client_class_interaction;
 import java.util.ArrayList;
-
 public class Store {
     // Instance variables
     private ArrayList<Client> clientList;

@@ -1,4 +1,6 @@
 package Position_physics_calculation;
+
+// This task was to calculate the position of an object in free fall.
 public class Lab1zad2 {
     // static method calculating the position of an object in free fall
     public static double calculatePosition(double x0, double v0, double t) {
