@@ -12,6 +12,7 @@ package Position_physics_calculation;
 
 		// new instance of 'MyNumber' (defined below):
 		MyNumber x = new MyNumber();
+		System.out.println("x = " + x);
 
 		// call to a method of 'MyNumber':
 		x.setN(7);
@@ -58,5 +59,9 @@ class MyNumber {
 
 	public int getN(){
 		return n;
+	}
+
+	public String toString(){
+		return name + " = " + n;
 	}
 }
