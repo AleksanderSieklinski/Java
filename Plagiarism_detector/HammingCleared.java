@@ -8,6 +8,9 @@ public class HammingCleared extends Hamming {
     }
     @Override
     int compare (String s1, String s2){
+        if (s1 == null || s2 == null || s1.length() == 0 || s2.length() == 0) {
+            throw new IllegalArgumentException("Strings cannot be null");
+        }
         s1 = cleared(s1);
         s2 = cleared(s2);
         return super.compare(cleared(s1),cleared(s2));
