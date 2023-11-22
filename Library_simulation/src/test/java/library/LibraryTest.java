@@ -1,14 +1,6 @@
-package Library_simulation.src.test.java.library;
+package library;
 import org.junit.Test;
 
-import Library_simulation.src.main.java.library.Book;
-import Library_simulation.src.main.java.library.Film;
-import Library_simulation.src.main.java.library.Journal;
-import Library_simulation.src.main.java.library.Library;
-import Library_simulation.src.main.java.library.LibraryItem;
-import Library_simulation.src.main.java.library.Student;
-import Library_simulation.src.main.java.library.Faculty;
-import Library_simulation.src.main.java.library.User;
 // This is a test class for the library simulation
 
 public class LibraryTest {
