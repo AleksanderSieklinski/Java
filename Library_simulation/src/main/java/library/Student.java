@@ -11,10 +11,12 @@ import java.time.LocalDate;
 public class Student implements User {
     private String name;
     private List<LibraryItem> borrowedItems;
+    private boolean returnsOnTime;
 
-    public Student(String name) {
+    public Student(String name, boolean returnsOnTime) {
         this.name = name;
         this.borrowedItems = new ArrayList<>();
+        this.returnsOnTime = returnsOnTime;
     }
 
     @Override
@@ -76,5 +78,10 @@ public class Student implements User {
             }
         }
         return null;
+    }
+
+    @Override
+    public boolean returnsOnTime() {
+        return returnsOnTime;
     }
 }

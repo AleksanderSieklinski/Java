@@ -45,7 +45,7 @@ public class LibraryTest {
         library.addItem(journal);
         library.addItem(film);
         assert(library.getNumberOfItems() == 3);
-        User person = new Student("Name");
+        User person = new Student("Name", true);
         assert(library.getNumberOfBorrowedItems() == 0);
         library.borrowItem("1", person, java.time.LocalDate.now());
         assert(library.getNumberOfBorrowedItems() == 1);

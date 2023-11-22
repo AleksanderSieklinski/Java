@@ -74,10 +74,11 @@ public class Main {
         LocalDate today = LocalDate.now();
 
         for (int i = 0; i < 100; i++) {
+            boolean returnsOnTime = i < 67;
             if (i < 80) {
-                usertable[i] = new Student("Student" + i);
+                usertable[i] = new Student("Student" + i, returnsOnTime);
             } else {
-                usertable[i] = new Faculty("Faculty" + i);
+                usertable[i] = new Faculty("Faculty" + i, returnsOnTime);
             }
         }
 
@@ -108,7 +109,7 @@ public class Main {
                     library.returnItem(item.id);
                 }
                 LibraryItem item;
-                while ((item = user.getItemDueToday(today)) != null) {
+                while ((item = user.getItemDueToday(today)) != null && !user.returnsOnTime()) {
                     library.returnItem(item.id);
                 }
             }

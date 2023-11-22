@@ -12,4 +12,5 @@ public interface User {
     String getName();
     LibraryItem getRandomBorrowedItem();
     LibraryItem getItemDueToday(LocalDate today);
+    boolean returnsOnTime();
 }
