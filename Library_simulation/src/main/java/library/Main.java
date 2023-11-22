@@ -1,9 +1,11 @@
-package Library_simulation.src.main.java.library;
+package library;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+
 import java.time.LocalDate;
+import java.util.Random;
 
 // This is the main class of the library simulation.
 // It reads the data from the csv files and creates the library items.
@@ -63,38 +65,62 @@ public class Main {
             System.out.println("Could not find books.csv");
         }
 
-        Person student = new Person("s", "John Doe");
-        Person teacher = new Person("t", "Jane Doe");
+        final double alphaBook = 0.05;
+        final double alphaJournal = 0.08;
+        final double alphaFilm = 0.05;
+        final double beta = 0.02;
+        Random random = new Random();
+        User usertable[] = new User[100];
+        LocalDate today = LocalDate.now();
 
-        library.borrowItem("1", student, LocalDate.now());
-        library.borrowItem("2", teacher, LocalDate.now());
-        library.borrowItem("3", student, LocalDate.now());
-        library.borrowItem("4", teacher, LocalDate.now());
+        for (int i = 0; i < 100; i++) {
+            if (i < 80) {
+                usertable[i] = new Student("Student" + i);
+            } else {
+                usertable[i] = new Faculty("Faculty" + i);
+            }
+        }
 
-        LocalDate date = LocalDate.now().plusWeeks(1);
+        for (int i = 0; i < 365; i++) {
+            System.out.println("Date: " + today);
+            today = today.plusDays(1);
+            for (User user : usertable) {
+                if (random.nextDouble() <= alphaBook) {
+                    LibraryItem item = library.getRandomAvailableItem(user,today);
+                    if (item != null) {
+                        user.borrowItem(item);
+                    }
+                }
+                if (random.nextDouble() <= alphaJournal) {
+                    LibraryItem item = library.getRandomAvailableItem(user,today);
+                    if (item != null) {
+                        user.borrowItem(item);
+                    }
+                }
+                if (random.nextDouble() <= alphaFilm) {
+                    LibraryItem item = library.getRandomAvailableItem(user,today);
+                    if (item != null) {
+                        user.borrowItem(item);
+                    }
+                }
+                if (random.nextDouble() <= beta && !user.getBorrowedItems().isEmpty()) {
+                    LibraryItem item = user.getRandomBorrowedItem();
+                    library.returnItem(item.id);
+                }
+                LibraryItem item;
+                while ((item = user.getItemDueToday(today)) != null) {
+                    library.returnItem(item.id);
+                }
+            }
+            library.dailyOperation(today);
+        }
 
-        System.out.println();
-        library.printItemInfo("1", date);
-        System.out.println();
-        library.printItemInfo("2", date);
-        System.out.println();
-        library.printItemInfo("3", date);
-        System.out.println();
-        library.printItemInfo("4", date);
-        System.out.println();
-        library.printTotalFine(date);
-        System.out.println();
-        library.printOverdueItems(date);
-        System.out.println();
-
-        library.returnItem("1");
-        library.returnItem("2");
-        library.returnItem("3");
-        library.returnItem("4");
-
-        library.getItem("1").print_details();
-        library.getItem("2").print_details();
-        library.getItem("3").print_details();
-        library.getItem("4").print_details();
+        Scanner input = new Scanner(System.in);
+        System.out.println("Do you want to see the loans? (y/n)");
+        String answer = input.nextLine();
+        if (answer.equals("y")) {
+            library.showLoans();
+        }
+        input.close();
     }
 }

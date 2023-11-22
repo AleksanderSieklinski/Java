@@ -6,8 +6,9 @@ import Library_simulation.src.main.java.library.Film;
 import Library_simulation.src.main.java.library.Journal;
 import Library_simulation.src.main.java.library.Library;
 import Library_simulation.src.main.java.library.LibraryItem;
-import Library_simulation.src.main.java.library.Person;
-
+import Library_simulation.src.main.java.library.Student;
+import Library_simulation.src.main.java.library.Faculty;
+import Library_simulation.src.main.java.library.User;
 // This is a test class for the library simulation
 
 public class LibraryTest {
@@ -36,13 +37,6 @@ public class LibraryTest {
     }
 
     @Test
-    public void testPerson() {
-        Person person = new Person("s", "John Doe");
-        assert(person.Get_Id() == "s");
-        assert(person.Get_Name() == "John Doe");
-    }
-
-    @Test
     public void testLibraryItem() {
         LibraryItem item = new Book("1", "Book Title", "Author", "Genre", "Publisher");
         assert(item.daysOverdue(java.time.LocalDate.now()) == 0);
@@ -59,7 +53,7 @@ public class LibraryTest {
         library.addItem(journal);
         library.addItem(film);
         assert(library.getNumberOfItems() == 3);
-        Person person = new Person("s", "John Doe");
+        User person = new Student("Name");
         assert(library.getNumberOfBorrowedItems() == 0);
         library.borrowItem("1", person, java.time.LocalDate.now());
         assert(library.getNumberOfBorrowedItems() == 1);

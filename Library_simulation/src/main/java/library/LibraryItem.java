@@ -1,4 +1,4 @@
-package Library_simulation.src.main.java.library;
+package library;
 
 import java.time.LocalDate;
 
@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public abstract class LibraryItem {
     protected String id;
     protected boolean isBorrowed;
-    protected Person borrowedBy;
+    protected User borrowedBy;
     protected LocalDate borrowedOn;
     protected LocalDate dueDate;
     protected double fine;

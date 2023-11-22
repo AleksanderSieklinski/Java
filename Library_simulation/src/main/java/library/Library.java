@@ -1,8 +1,10 @@
-package Library_simulation.src.main.java.library;
+package library;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import java.util.Random;
 
 // This class is a library system that stores LibraryItems and allows borrowing and returning of items by Persons
 
@@ -17,11 +19,11 @@ public class Library {
         items.add(item);
     }
 
-    public void borrowItem(String id, Person borrower, LocalDate borrowDate) {
+    public void borrowItem(String id, User borrower, LocalDate borrowDate) {
         for (LibraryItem item : items) {
             if (item.id.equals(id)) {
                 borrower.borrowItem(item);
-                if(borrower.is_borrowed(id)){
+                if(borrower.getBorrowedItems().contains(item)) {
                     item.isBorrowed = true;
                     item.borrowedBy = borrower;
                     item.borrowedOn = borrowDate;
@@ -35,7 +37,7 @@ public class Library {
     public void returnItem(String id) {
         for (LibraryItem item : items) {
             if (item.id.equals(id) && item.isBorrowed) {
-                item.borrowedBy.returnItem(item);
+                item.borrowedBy.getBorrowedItems().remove(item);
                 item.isBorrowed = false;
                 item.borrowedBy = null;
                 item.borrowedOn = null;
@@ -69,7 +71,7 @@ public class Library {
                 System.out.println(item.getClass().getName());
                 System.out.println("Id: " + item.id);
                 System.out.println("Is borrowed: " + item.isBorrowed);
-                System.out.println("Borrowed by: " + item.borrowedBy.Get_Name());
+                System.out.println("Borrowed by: " + item.borrowedBy.getName());
                 System.out.println("Borrowed on: " + item.borrowedOn);
                 System.out.println("Due date: " + item.dueDate);
                 if (item.isOverdue(today)) {
@@ -100,6 +102,16 @@ public class Library {
         return count;
     }
 
+    public int getNumberOfOverdueItems(LocalDate today) {
+        int count = 0;
+        for (LibraryItem item : items) {
+            if (item.isOverdue(today)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     public LibraryItem getItem(String id) {
         for (LibraryItem item : items) {
             if (item.id.equals(id)) {
@@ -107,5 +119,39 @@ public class Library {
             }
         }
         return null;
+    }
+
+    public void dailyOperation(LocalDate today) {
+        showStatistics(today);
+    }
+
+    public void showLoans() {
+        System.out.println("Loans:");
+        for (LibraryItem item : items) {
+            if (item.isBorrowed) {
+                System.out.println();
+                System.out.println("Item id: " + item.id);
+                System.out.println("Borrowed by: " + item.borrowedBy.getName());
+                System.out.println("Borrowed on: " + item.borrowedOn);
+                System.out.println("Due date: " + item.dueDate);
+            }
+        }
+    }
+
+    public void showStatistics(LocalDate today) {
+        System.out.println("Statistics:");
+        System.out.println("Number of items: " + getNumberOfItems());
+        System.out.println("Number of borrowed items: " + getNumberOfBorrowedItems());
+        System.out.println("Number of overdue items: " + getNumberOfOverdueItems(today));
+    }
+
+    public LibraryItem getRandomAvailableItem(User user,LocalDate today) {
+        Random rand = new Random();
+        int randomIndex = rand.nextInt(items.size());
+        while (items.get(randomIndex).isBorrowed) {
+            randomIndex = rand.nextInt(items.size());
+        }
+        borrowItem(items.get(randomIndex).id, user, today);
+        return items.get(randomIndex);
     }
 }

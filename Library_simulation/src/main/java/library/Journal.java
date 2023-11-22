@@ -1,4 +1,4 @@
-package Library_simulation.src.main.java.library;
+package library;
 
 import java.time.LocalDate;
 
@@ -24,7 +24,7 @@ public class Journal extends LibraryItem {
     }
 
     public void calculateDueDate() {
-        switch (borrowedBy.Get_Id()) {
+        switch (borrowedBy instanceof Student ? "s" : "t") {
             case "s":
                 this.dueDate = borrowedOn.plusDays(3);
                 break;
