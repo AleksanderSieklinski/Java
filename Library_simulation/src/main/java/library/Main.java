@@ -113,9 +113,10 @@ public class Main {
                     library.returnItem(item.id);
                 }
             }
-            library.dailyOperation(today);
+            System.out.println("Overdue items fine:" + library.dailyOperation(today));
         }
 
+        library.showStatistics(today);
         Scanner input = new Scanner(System.in);
         System.out.println("Do you want to see the loans? (y/n)");
         String answer = input.nextLine();

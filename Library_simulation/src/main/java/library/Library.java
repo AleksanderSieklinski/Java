@@ -121,8 +121,14 @@ public class Library {
         return null;
     }
 
-    public void dailyOperation(LocalDate today) {
-        showStatistics(today);
+    public double dailyOperation(LocalDate today) {
+        double sum = 0.0;
+        for (LibraryItem item : items) {
+            if (item.isBorrowed && item.dueDate.isBefore(today)) {
+                sum += item.computeFine(today);
+            }
+        }
+        return sum;
     }
 
     public void showLoans() {
@@ -143,6 +149,7 @@ public class Library {
         System.out.println("Number of items: " + getNumberOfItems());
         System.out.println("Number of borrowed items: " + getNumberOfBorrowedItems());
         System.out.println("Number of overdue items: " + getNumberOfOverdueItems(today));
+        printTotalFine(today);
     }
 
     public LibraryItem getRandomAvailableItem(User user,LocalDate today) {
