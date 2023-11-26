@@ -108,6 +108,7 @@ public class SolveMaze {
         }
         catch (FileNotFoundException e) {
             System.out.println("File not found");
+            return;
         }
         maze.find_last();
         maze.makePaths();
