@@ -1,4 +1,6 @@
 package library;
+import java.time.LocalDate;
+
 import org.junit.Test;
 
 // This is a test class for the library simulation
@@ -51,5 +53,27 @@ public class LibraryTest {
         assert(library.getNumberOfBorrowedItems() == 1);
         library.returnItem("1");
         assert(library.getNumberOfBorrowedItems() == 0);
+        assert(library.getNumberOfItems() == 3);
+        assert(library.dailyOperation(LocalDate.now()) == 0);
+    }
+
+    @Test
+    public void testStudent() {
+        User student = new Student("Name", true);
+        assert(student.getName().equals("Name"));
+        assert(student.getBorrowedItems().size() == 0);
+        assert(student.getItemDueToday(LocalDate.now()) == null);
+        assert(student.returnsOnTime() == true);
+        assert(student.FeeSum(LocalDate.now()) == 0.0);
+    }
+
+    @Test
+    public void testFaculty() {
+        User faculty = new Faculty("Name", true);
+        assert(faculty.getName().equals("Name"));
+        assert(faculty.getBorrowedItems().size() == 0);
+        assert(faculty.getItemDueToday(LocalDate.now()) == null);
+        assert(faculty.returnsOnTime() == true);
+        assert(faculty.FeeSum(LocalDate.now()) == 0.0);
     }
 }

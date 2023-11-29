@@ -8,7 +8,7 @@ import java.time.LocalDate;
 // This is a class for a Faculty member
 // A faculty member can borrow items, get a list of his borrowed items, get his name, get a random borrowed item, and get an item due today
 
-public class Faculty implements User {
+public class Faculty extends Fee_block implements User {
     private String name;
     private List<LibraryItem> borrowedItems;
     private boolean returnsOnTime;
@@ -21,7 +21,6 @@ public class Faculty implements User {
 
     @Override
     public void borrowItem(LibraryItem item) {
-        // No limit for faculty
         borrowedItems.add(item);
     }
 
@@ -54,5 +53,14 @@ public class Faculty implements User {
     @Override
     public boolean returnsOnTime() {
         return returnsOnTime;
+    }
+
+    @Override
+    public boolean Block_borrow(LocalDate today) {
+        if (FeeSum(today) > max_fee) {
+            System.out.println(name + " you are blocked from borrowing");
+            return true;
+        }
+        return false;
     }
 }

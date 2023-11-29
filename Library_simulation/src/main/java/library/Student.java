@@ -8,7 +8,7 @@ import java.time.LocalDate;
 // This is a class for a student
 // A student can borrow items, get a list of his borrowed items, get his name, get a random borrowed item, and get an item due today
 
-public class Student implements User {
+public class Student extends Fee_block implements User {
     private String name;
     private List<LibraryItem> borrowedItems;
     private boolean returnsOnTime;
@@ -24,7 +24,7 @@ public class Student implements User {
         if (item instanceof Film) {
             for (LibraryItem i : borrowedItems) {
                 if (i instanceof Film) {
-                    System.out.println(name +" you can't borrow more than one film at the same time");
+                    //System.out.println(name +" you can't borrow more than one film at the same time");
                     return;
                 }
             }
@@ -36,7 +36,7 @@ public class Student implements User {
                 }
             }
             if (count >= 3) {
-                System.out.println(name +" you can't borrow more than three books at the same time");
+                //System.out.println(name +" you can't borrow more than three books at the same time");
                 return;
             }
         } else if (item instanceof Journal) {
@@ -47,7 +47,7 @@ public class Student implements User {
                 }
             }
             if (count >= 3) {
-                System.out.println(name +" you can't borrow more than three journals at the same time");
+                //System.out.println(name +" you can't borrow more than three journals at the same time");
                 return;
             }
         }
@@ -83,5 +83,14 @@ public class Student implements User {
     @Override
     public boolean returnsOnTime() {
         return returnsOnTime;
+    }
+
+    @Override
+    public boolean Block_borrow(LocalDate today) {
+        if (FeeSum(today) > max_fee) {
+            System.out.println(name + " you are blocked from borrowing");
+            return true;
+        }
+        return false;
     }
 }

@@ -86,36 +86,47 @@ public class Main {
             System.out.println("Date: " + today);
             today = today.plusDays(1);
             for (User user : usertable) {
-                if (random.nextDouble() <= alphaBook) {
-                    LibraryItem item = library.getRandomAvailableItem(user,today);
-                    if (item != null) {
-                        user.borrowItem(item);
-                    }
-                }
-                if (random.nextDouble() <= alphaJournal) {
-                    LibraryItem item = library.getRandomAvailableItem(user,today);
-                    if (item != null) {
-                        user.borrowItem(item);
-                    }
-                }
-                if (random.nextDouble() <= alphaFilm) {
-                    LibraryItem item = library.getRandomAvailableItem(user,today);
-                    if (item != null) {
-                        user.borrowItem(item);
-                    }
+                if((today.getDayOfYear() == 60 || today.getDayOfYear() == 120) && (user.equals(usertable[76]) || user.equals(usertable[88]))){
+                    user.seeBorrowedItems(user.getName(), user.getBorrowedItems());
+                    System.out.println(user.getName() + " has to pay " + user.FeeSum(today) + " PLN\n");
+                    user.seeBorrowedItems(user.getName(), user.getBorrowedItems());
+                    System.out.println(user.getName() + " has to pay " + user.FeeSum(today) + " PLN\n");
                 }
                 if (random.nextDouble() <= beta && !user.getBorrowedItems().isEmpty()) {
-                    LibraryItem item = user.getRandomBorrowedItem();
-                    library.returnItem(item.id);
+                    library.returnItem(user.getRandomBorrowedItem().id);
                 }
                 LibraryItem item;
-                while ((item = user.getItemDueToday(today)) != null && !user.returnsOnTime()) {
+                while ((item = user.getItemDueToday(today)) != null && user.returnsOnTime()) {
                     library.returnItem(item.id);
+                }
+                if (user instanceof Student) {
+                    Student student = (Student) user;
+                    if (student.Block_borrow(today)){
+                        continue;
+                    }
+                }
+                else if (user instanceof Faculty) {
+                    Faculty faculty = (Faculty) user;
+                    if (faculty.Block_borrow(today)){
+                        continue;
+                    }
+                }
+                if (random.nextDouble() <= alphaBook) {
+                    library.getRandomAvailableItem(user,today);
+                }
+                if (random.nextDouble() <= alphaJournal) {
+                    library.getRandomAvailableItem(user,today);
+                }
+                if (random.nextDouble() <= alphaFilm) {
+                    library.getRandomAvailableItem(user,today);
                 }
             }
             System.out.println("Overdue items fine:" + library.dailyOperation(today));
         }
-
+        for(User user : usertable){
+            System.out.println(user.getName() + " has to pay " + user.FeeSum(today) + " PLN");
+        }
+        library.printOverdueUsers(today);
         library.showStatistics(today);
         Scanner input = new Scanner(System.in);
         System.out.println("Do you want to see the loans? (y/n)");
