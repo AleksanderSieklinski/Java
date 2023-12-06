@@ -8,7 +8,7 @@ import java.time.LocalDate;
 // This is a class for a student
 // A student can borrow items, get a list of his borrowed items, get his name, get a random borrowed item, and get an item due today
 
-public class Student extends Fee_block implements User {
+public final class Student extends Fee_block implements User {
     private String name;
     private List<LibraryItem> borrowedItems;
     private boolean returnsOnTime;

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 // This class is a subclass of LibraryItem resembling a journal in a library system
 
-public class Journal extends LibraryItem {
+public final class Journal extends LibraryItem {
     private String eISSN;
     private String publisher;
     private String latestIssue;

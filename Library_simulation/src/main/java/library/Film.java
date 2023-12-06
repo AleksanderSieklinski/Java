@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 // This class is a subclass of LibraryItem resembling a film in a library system
 
-public class Film extends LibraryItem {
+public final class Film extends LibraryItem {
     private String title;
     private String genre;
     private String director;

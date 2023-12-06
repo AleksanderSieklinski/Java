@@ -8,7 +8,7 @@ import java.util.Random;
 
 // This class is a library system that stores LibraryItems and allows borrowing and returning of items by Persons
 
-public class Library {
+public final class Library {
     private List<LibraryItem> items;
 
     public Library() {

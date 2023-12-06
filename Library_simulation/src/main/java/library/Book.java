@@ -5,7 +5,7 @@ import java.time.LocalDate;
 //This class is a subclass of LibraryItem resembling a book in a library system
 
 
-public class Book extends LibraryItem {
+public final class Book extends LibraryItem {
     private String title;
     private String author;
     private String genre;
