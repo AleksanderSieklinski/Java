@@ -19,6 +19,7 @@ public class Main {
             System.out.println("Nieprawidłowy miesiąc. Spróbuj ponownie:");
             monthInput = scanner.nextLine();
         }
+        scanner.close();
         return monthInput;
     }
     static Integer dayInput(MonthOfYear month) {
@@ -29,6 +30,7 @@ public class Main {
             System.out.println("Nieprawidłowy dzień. Spróbuj ponownie:");
             day = scanner.nextInt();
         }
+        scanner.close();
         return day;
     }
     static Integer totalDays(Integer day, MonthOfYear month) {
@@ -58,6 +60,7 @@ public class Main {
                 break;
             }
         }
+        scanner.close();
         return month;
     }
     public static void main(String[] args) {
