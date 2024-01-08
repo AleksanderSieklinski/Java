@@ -9,7 +9,7 @@ import java.util.Random;
 // This class is a library system that stores LibraryItems and allows borrowing and returning of items by Persons
 
 public final class Library {
-    private List<LibraryItem> items;
+    private final List<LibraryItem> items;
 
     public Library() {
         items = new ArrayList<>();
@@ -80,14 +80,14 @@ public final class Library {
         return null;
     }
 
-    public LibraryItem getRandomAvailableItem(User user,LocalDate today) {
+    public void getRandomAvailableItem(User user, LocalDate today) {
         Random rand = new Random();
+        System.out.println(items.size());
         int randomIndex = rand.nextInt(items.size());
         while (items.get(randomIndex).isBorrowed) {
             randomIndex = rand.nextInt(items.size());
         }
         borrowItem(items.get(randomIndex).id, user, today);
-        return items.get(randomIndex);
     }
 
     public void printOverdueItems(LocalDate today) {
@@ -122,7 +122,7 @@ public final class Library {
                 }
                 return;
             }
-            else if (item.id.equals(id) && !item.isBorrowed) {
+            else if (item.id.equals(id)) {
                 System.out.println(item.getClass().getName());
                 System.out.println("Id: " + item.id);
                 System.out.println("Is borrowed: " + item.isBorrowed);

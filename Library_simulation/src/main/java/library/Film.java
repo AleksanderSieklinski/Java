@@ -5,15 +5,15 @@ import java.time.LocalDate;
 // This class is a subclass of LibraryItem resembling a film in a library system
 
 public final class Film extends LibraryItem {
-    private String title;
-    private String genre;
-    private String director;
-    private int year;
-    private int runtime;
-    private double rating;
+    private final String title;
+    private final String genre;
+    private final String director;
+    private final int year;
+    private final int runtime;
+    private final double rating;
 
     public Film(String id, String title, String genre, String director, int year, int runtime, double rating) {
-        this.id = id;
+        super(id);
         this.title = title;
         this.genre = genre;
         this.director = director;
@@ -42,7 +42,7 @@ public final class Film extends LibraryItem {
         if (borrowedOn == null) {
             return false;
         }
-        return today.compareTo(dueDate) > 0;
+        return today.isAfter(dueDate);
     }
 
     public double computeFine(LocalDate today) {

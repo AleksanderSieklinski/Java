@@ -5,13 +5,13 @@ import java.time.LocalDate;
 // This class is a subclass of LibraryItem resembling a journal in a library system
 
 public final class Journal extends LibraryItem {
-    private String eISSN;
-    private String publisher;
-    private String latestIssue;
-    private String journalURL;
+    private final String eISSN;
+    private final String publisher;
+    private final String latestIssue;
+    private final String journalURL;
 
     public Journal(String id, String eISSN, String publisher, String latestIssue, String journalURL) {
-        this.id = id;
+        super(id);
         this.eISSN = eISSN;
         this.publisher = publisher;
         this.latestIssue = latestIssue;

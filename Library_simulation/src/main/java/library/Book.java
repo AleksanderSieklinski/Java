@@ -6,13 +6,14 @@ import java.time.LocalDate;
 
 
 public final class Book extends LibraryItem {
-    private String title;
-    private String author;
-    private String genre;
-    private String publisher;
+    private final String title;
+    private final String author;
+    private final String genre;
+    private final String publisher;
+    private int pagesNr = 100;
 
     public Book(String id, String title, String author, String genre, String publisher) {
-        this.id = id;
+        super(id);
         this.title = title;
         this.author = author;
         this.genre = genre;
@@ -23,6 +24,18 @@ public final class Book extends LibraryItem {
         this.dueDate = null;
         this.fine = 0.5;
     }
+
+    // Added public constructor
+    public Book(String id, String title, String author) {
+        this(id, title, author, "Unknown", "Unknown");
+    }
+
+    // Added private constructor
+    private Book(String id, String title) {
+        this(id, title, "Unknown", "Unknown", "Unknown");
+    }
+
+    public int getPagesNr(){return pagesNr;}
 
     public void calculateDueDate() {
         this.dueDate = borrowedOn.plusDays(14);
@@ -39,7 +52,7 @@ public final class Book extends LibraryItem {
         if (borrowedOn == null) {
             return false;
         }
-        return today.compareTo(dueDate) > 0;
+        return today.isAfter(dueDate);
     }
 
     public double computeFine(LocalDate today) {
@@ -58,5 +71,6 @@ public final class Book extends LibraryItem {
         System.out.println("Author: " + author);
         System.out.println("Genre: " + genre);
         System.out.println("Publisher: " + publisher);
+        System.out.println("Number of pages: " + pagesNr);
     }
 }

@@ -5,13 +5,12 @@ import java.util.List;
 import java.util.Random;
 import java.time.LocalDate;
 
-// This is a class for a student
-// A student can borrow items, get a list of his borrowed items, get his name, get a random borrowed item, and get an item due today
+// This is a class for a student that can borrow items, get a list of his borrowed items, get his name, get a random borrowed item, and get an item due today
 
 public final class Student extends Fee_block implements User {
-    private String name;
-    private List<LibraryItem> borrowedItems;
-    private boolean returnsOnTime;
+    private final String name;
+    private final List<LibraryItem> borrowedItems;
+    private final boolean returnsOnTime;
 
     public Student(String name, boolean returnsOnTime) {
         this.name = name;

@@ -17,7 +17,7 @@ public final class Main {
         Library library = new Library();
         String id = "1";
 
-        try (Scanner scanner = new Scanner(new File("movies.csv"))) {
+        try (Scanner scanner = new Scanner(new File("src/main/data/movies.csv"))) {
             scanner.nextLine();
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -33,7 +33,7 @@ public final class Main {
             System.out.println("Could not find movies.csv");
         }
 
-        try (Scanner scanner = new Scanner(new File("jlist.csv"))) {
+        try (Scanner scanner = new Scanner(new File("src/main/data/jlist.csv"))) {
             scanner.nextLine();
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -49,7 +49,7 @@ public final class Main {
             System.out.println("Could not find jlist.csv");
         }
 
-        try (Scanner scanner = new Scanner(new File("books.csv"))) {
+        try (Scanner scanner = new Scanner(new File("src/main/data/books.csv"))) {
             scanner.nextLine();
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -64,13 +64,17 @@ public final class Main {
         } catch (FileNotFoundException e) {
             System.out.println("Could not find books.csv");
         }
-
+        // if no csv files are found, the program will not run
+        if (id.equals("1")) {
+            System.out.println("No csv files found");
+            return;
+        }
         final double alphaBook = 0.05;
         final double alphaJournal = 0.08;
         final double alphaFilm = 0.05;
         final double beta = 0.02;
         Random random = new Random();
-        User usertable[] = new User[100];
+        User[] usertable = new User[100];
         LocalDate today = LocalDate.now();
 
         for (int i = 0; i < 100; i++) {
@@ -78,7 +82,7 @@ public final class Main {
             if (i < 80) {
                 usertable[i] = new Student("Student" + i, returnsOnTime);
             } else {
-                usertable[i] = new Faculty("Faculty" + i, returnsOnTime);
+                usertable[i] = new Faculty("Faculty" + i, false);
             }
         }
 
@@ -99,14 +103,12 @@ public final class Main {
                 while ((item = user.getItemDueToday(today)) != null && user.returnsOnTime()) {
                     library.returnItem(item.id);
                 }
-                if (user instanceof Student) {
-                    Student student = (Student) user;
+                if (user instanceof Student student) {
                     if (student.Block_borrow(today)){
                         continue;
                     }
                 }
-                else if (user instanceof Faculty) {
-                    Faculty faculty = (Faculty) user;
+                else if (user instanceof Faculty faculty) {
                     if (faculty.Block_borrow(today)){
                         continue;
                     }

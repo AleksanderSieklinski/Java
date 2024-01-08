@@ -10,7 +10,7 @@ public class LibraryTest {
     public void testFilm() {
         Film film = new Film("1", "Film Title", "Genre", "Director", 2020, 120, 8.5);
         assert(film.daysOverdue(java.time.LocalDate.now()) == 0);
-        assert(film.isOverdue(java.time.LocalDate.now()) == false);
+        assert(!film.isOverdue(LocalDate.now()));
         assert(film.computeFine(java.time.LocalDate.now()) == 0.0);
     }
 
@@ -18,7 +18,7 @@ public class LibraryTest {
     public void testBook() {
         Book book = new Book("1", "Book Title", "Author", "Genre", "Publisher");
         assert(book.daysOverdue(java.time.LocalDate.now()) == 0);
-        assert(book.isOverdue(java.time.LocalDate.now()) == false);
+        assert(!book.isOverdue(LocalDate.now()));
         assert(book.computeFine(java.time.LocalDate.now()) == 0.0);
     }
 
@@ -26,7 +26,7 @@ public class LibraryTest {
     public void testJournal() {
         Journal journal = new Journal("1", "eISSN", "Publisher", "latestIssue", "journalURL");
         assert(journal.daysOverdue(java.time.LocalDate.now()) == 0);
-        assert(journal.isOverdue(java.time.LocalDate.now()) == false);
+        assert(!journal.isOverdue(LocalDate.now()));
         assert(journal.computeFine(java.time.LocalDate.now()) == 0.0);
     }
 
@@ -61,9 +61,9 @@ public class LibraryTest {
     public void testStudent() {
         User student = new Student("Name", true);
         assert(student.getName().equals("Name"));
-        assert(student.getBorrowedItems().size() == 0);
+        assert(student.getBorrowedItems().isEmpty());
         assert(student.getItemDueToday(LocalDate.now()) == null);
-        assert(student.returnsOnTime() == true);
+        assert(student.returnsOnTime());
         assert(student.FeeSum(LocalDate.now()) == 0.0);
     }
 
@@ -71,9 +71,18 @@ public class LibraryTest {
     public void testFaculty() {
         User faculty = new Faculty("Name", true);
         assert(faculty.getName().equals("Name"));
-        assert(faculty.getBorrowedItems().size() == 0);
+        assert(faculty.getBorrowedItems().isEmpty());
         assert(faculty.getItemDueToday(LocalDate.now()) == null);
-        assert(faculty.returnsOnTime() == true);
+        assert(faculty.returnsOnTime());
         assert(faculty.FeeSum(LocalDate.now()) == 0.0);
+    }
+    @Test
+    public void testUser() {
+        User user = new Student("Name", true);
+        assert(user.getName().equals("Name"));
+        assert(user.getBorrowedItems().isEmpty());
+        assert(user.getItemDueToday(LocalDate.now()) == null);
+        assert(user.returnsOnTime());
+        assert(user.FeeSum(LocalDate.now()) == 0.0);
     }
 }
