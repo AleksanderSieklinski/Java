@@ -1,4 +1,4 @@
-package library;
+package code;
 
 // This is a small class to test the addition of two different data types using generic class.
 
