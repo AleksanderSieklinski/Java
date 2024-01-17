@@ -39,8 +39,8 @@ public class Hamming {
         catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println(h.compare("abc","abc"));
-        System.out.println(h.compare("abc","abcd"));
+        System.out.println(h.compare("medication","meditation"));
+        System.out.println(h.compare("speed","speeding"));
         System.out.println(h.compare("abc","ab"));
         System.out.println(h.compare("ab c","abc"));
         System.out.println(h.compare("abc   d","abcd"));

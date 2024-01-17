@@ -70,7 +70,7 @@ public class CheckPlagiarism {
     public static void main(String[] args) {
         CheckPlagiarism c = new CheckPlagiarism();
         try {
-            c.checkAllFilesInDirectory("C:\\Users\\aleks\\Documents\\Java");
+            c.checkAllFilesInDirectory("C:\\Users\\aleks\\Documents\\Java\\Plagiarism_detector\\To_check");
         } catch (IOException e) {
             e.printStackTrace();
         }
